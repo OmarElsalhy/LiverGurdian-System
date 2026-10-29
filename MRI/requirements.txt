@@ -1,0 +1,8 @@
+torch --index-url https://download.pytorch.org/repo/cpu
+numpy==1.24.3
+nibabel
+scikit-image
+matplotlib
+flask
+flask-cors
+werkzeug
