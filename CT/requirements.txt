@@ -1,0 +1,7 @@
+flask
+numpy
+pandas
+nibabel
+scikit-image
+tensorflow
+matplotlib
