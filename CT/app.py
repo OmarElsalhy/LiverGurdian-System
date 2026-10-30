@@ -11,16 +11,10 @@ import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 
-# ---------------------------
-# 1. تعريف الـ Custom Objects (لمنع خطأ التحميل)
-# ---------------------------
 def combined_loss(y_true, y_pred): return 0
 def dice_coef(y_true, y_pred): return 0
 def dice_coefficient(y_true, y_pred): return 0
 
-# ---------------------------
-# 2. تحميل الموديل عند تشغيل السيرفر
-# ---------------------------
 def load_full_model():
     try:
         config_path = 'config.json'
@@ -55,12 +49,9 @@ def load_full_model():
 
 model_3d = load_full_model()
 
-# ---------------------------
-# 3. دالات المعالجة
-# ---------------------------
+
 def read_nii(nii_path):
     try:
-        # بنستخدم mmap=False عشان نضمن إن الداتا كلها في الميموري
         img = nib.load(nii_path)
         data = img.get_fdata()
         return data
@@ -96,9 +87,7 @@ def create_full_visualization(ct, pred_mask, status, ratio, confidence):
     plt.close()
     return img_str
 
-# ---------------------------
-# 4. الـ Endpoints
-# ---------------------------
+
 @app.route('/')
 def home():
     status = "READY" if model_3d is not None else "NOT_LOADED"
@@ -116,11 +105,9 @@ def predict_ct():
     temp_path = os.path.abspath("temp_inference.nii")
 
     try:
-        # حفظ الملف "بإحكام"
         file.save(temp_path)
         file.close() 
 
-        # قراءة ومعالجة
         ct = read_nii(temp_path)
         if ct is None:
             return jsonify({"success": False, "error": "Invalid NIfTI file"}), 400
@@ -130,11 +117,9 @@ def predict_ct():
         ct_norm = normalize_ct_scan(ct_resized)
         ct_input = ct_norm[np.newaxis, ..., np.newaxis]
 
-        # التوقع
         pred = model_3d.predict(ct_input, verbose=0)
         pred_mask = (pred > 0.5).astype(np.uint8)
 
-        # النتائج
         ratio = float(np.sum(pred_mask) / np.prod(pred_mask.shape))
         confidence = float(np.mean(np.abs(pred - 0.5)) * 2)
         status_text = "CANCER DETECTED" if ratio >= 0.003 else "NO CANCER"
