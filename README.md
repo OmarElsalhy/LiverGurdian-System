@@ -151,8 +151,8 @@ Python, PyTorch (MRI), TensorFlow/Keras (CT), CatBoost, Flask, FastAPI, Docker, 
 
 Modern Academy for Computer Science and Management, Cairo, Egypt
 
-Team Leader:Omar EL-Salhy
-Sub-Team Leader :Ahmed Hussien 
+Team Leader: Omar EL-Salhy,
+Sub-Team Leader :Ahmed Hussien, 
 Ali Ahmed, Mohamed Anwer, Mahmoud Tolpa
 
 Supervision: Mohamed Hassan (Teaching Assistant), Dr. Mohamed AbdelFattah (Assistant Professor), Prof. E. M. Haggag (Faculty of Medicine, Cairo University)
