@@ -4,7 +4,7 @@ from pydantic import BaseModel
 import os
 
 # 1. API Configuration
-API_KEY = "AIzaSyA4tReP15S63eOxmnd5Ik-z2HsWOduPV_0"
+API_KEY = os.environ.get("GEMINI_API_KEY", "")
 genai.configure(api_key=API_KEY)
 
 try:
